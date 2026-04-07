@@ -1,12 +1,11 @@
-# Rahasia
-.clasp.json
-.clasprc.json
-.env
-secrets.json
-
-# Tidak perlu di Apps Script
-node_modules/
-Client/          # kalau kamu mau pisah JS client (opsional)
+**/**
+!appsscript.json
+!*.js
+!*.gs
+!*.html
+!*.ts
+!App/**
+node_modules/**
 README.md
 .git/
 .gitignore
