@@ -1,0 +1,73 @@
+<script>
+    function loadPage(page) {
+        const contentArea = document.getElementById('main-content');
+        const loader = document.getElementById('loader');
+
+        // Loading state
+        loader.innerHTML = `
+            <div class="absolute inset-0 z-50 bg-base-200/50 backdrop-blur-none flex flex-col items-center justify-center py-20">
+                <span class="loading loading-bars loading-md"></span>
+                <p class="mt-4 text-base-content/60">Memuat halaman...</p>
+            </div>`;
+        // sidebarMenu.innerHTML = `<div class="absolute inset-0 z-10 bg-base-300/10 flex flex-col items-center justify-center py-20"></div>`;
+
+        google.script.run
+            .withSuccessHandler((html) => {
+                contentArea.innerHTML = html;
+                loader.innerHTML = '';
+            })
+            .withFailureHandler((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Memuat',
+                    text: err.message || 'Terjadi kesalahan',
+                    confirmButtonColor: '#a855f7'
+                });
+                contentArea.innerHTML = `<div class="alert alert-error">Gagal memuat halaman ${page}</div>`;
+            })
+            .renderPage(page);
+    }
+
+    function initPage(page) {
+        if (page === 'dokter') {
+            if (typeof initDokterPage === 'function') initDokterPage();
+        }
+        // tambah untuk halaman lain
+    }
+
+    function navigateTo(page) {
+        const drawerCheckbox = document.getElementById('side-bar');
+
+        if (drawerCheckbox) {
+            drawerCheckbox.checked = false;
+        }
+
+        setActiveMenu(page);
+
+        // Delay kecil biar animasi tutup sidebar selesai dulu
+        setTimeout(() => {
+            loadPage(page);
+        }, 75);
+    }
+
+    function setActiveMenu(page) {
+        // Reset semua menu
+        const allMenus = document.querySelectorAll('#sidebar-menu a');
+        allMenus.forEach(menu => {
+            menu.classList.remove('menu-active');
+        });
+
+        // Aktifkan menu yang dipilih
+        const activeMenu = document.getElementById(`menu-${page}`);
+        if (activeMenu) {
+            activeMenu.classList.add('menu-active');
+        }
+    }
+
+    // Load pertama kali
+    window.onload = () => {
+        loadPage('dashboard');
+        setActiveMenu('dashboard');
+        // init user info dll
+    };
+</script>

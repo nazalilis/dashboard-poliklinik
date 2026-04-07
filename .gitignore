@@ -1,0 +1,23 @@
+# Clasp & Google credential
+.clasp.json
+.clasprc.json
+**/.clasprc.json
+Database.gs
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Log files
+*.log
+
+# Secret files
+.env
+secrets.json
+config-secret.gs
+
+# Temporary files
+.DS_Store
+Thumbs.db

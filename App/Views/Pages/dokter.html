@@ -1,0 +1,334 @@
+<div class="space-y-6">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-primary flex items-center gap-3">
+            <iconify-icon icon="mdi:doctor" width="32"></iconify-icon>
+            Jadwal Dokter
+        </h2>
+        <button onclick="tambahDokter()" class="btn btn-primary flex items-center gap-2">
+            <iconify-icon icon="mdi:plus"></iconify-icon>
+            Tambah Dokter
+        </button>
+    </div>
+
+    <div class="tabs tabs-box">
+
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="Spesialisasi" checked="checked" />
+        <div class="tab-content bg-base-100 border-base-300 p-6">
+
+            <? 
+                const dataTerkelompok = spesialisasi; // Data sudah dikelompokkan berdasarkan spesialisasi di server-side
+                const daftarPoli = Object.keys(dataTerkelompok); // Mendapatkan ['ANAK', 'PARU']
+            ?>
+
+            <? for (let i = 1; i < daftarPoli.length; i++) { 
+                let namaPoli = daftarPoli[i];
+                let dokters = dataTerkelompok[namaPoli];
+            ?>
+
+            <ul class="list bg-base-100 rounded-box shadow-md">
+
+                <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">POLI
+                    <?= namaPoli ?>
+                </li>
+
+                <? for (let j = 0; j < dokters.length; j++) { 
+                    let d = dokters[j]; 
+                ?>
+
+                <li class="list-row">
+                    <div class="text-4xl font-thin opacity-30 tabular-nums">
+                        <?= (j + 1) ?>
+                    </div>
+                    <div class="list-col-grow">
+                        <div>
+                            <?= d.nama ?>
+                        </div>
+                        <div class="text-xs uppercase font-semibold opacity-60">
+                            <?= d.hari ?> |
+                            <?= d.shift ?> (
+                            <?= d.jam ?>)
+                        </div>
+                    </div>
+
+                </li>
+
+                <? } ?>
+
+            </ul>
+
+            <? } ?>
+
+        </div>
+
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="Spesialisasi Detail" />
+        <div class="tab-content bg-base-100 border-base-300 p-6">
+            <? 
+                const dataFinal = spesialisasiDetail; // Data sudah dikelompokkan berdasarkan spesialisasi di server-side
+            ?>
+
+            <? dataFinal.forEach((itemPoli) => { ?>
+
+            <div class="poli-header" style="padding: 10px; background: #e5e7eb; font-weight: bold; margin-top:10px;">
+                POLI
+                <?= itemPoli.poli ?>
+            </div>
+
+            <ul>
+                <? itemPoli.listDokter.forEach((d, index) => { ?>
+                <li class="list-row" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                    <div class="text-4xl font-thin opacity-30 tabular-nums">
+                        <?= (index + 1) ?>
+                    </div>
+
+                    <div class="list-col-grow">
+                        <div style="font-weight: 600; color: #1a1a1a;">
+                            <?= d.nama ?>
+                        </div>
+
+                        <div class="text-xs uppercase opacity-70">
+                            <? d.jadwalDetail.forEach(line => { ?>
+                            <div>
+                                <?= line ?>
+                            </div>
+                            <? }) ?>
+                        </div>
+                    </div>
+                </li>
+                <? }) ?>
+            </ul>
+
+            <? }) ?>
+        </div>
+
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="Tab 3" />
+        <div class="tab-content bg-base-100 border-base-300 p-6">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 flex items-center">
+                        <div class="bg-blue-600 p-4 rounded-full text-center">
+                            <p class="text-2xl font-bold text-white">05</p>
+                        </div>
+                        <div class="ml-4">
+                            <div class="uppercase px-2 rounded-md text-white bg-green-400 font-semibold">
+                                Paid</div>
+                            <p class="mt-2 text-gray-600">DATE: 2024-07-25</p>
+                            <p class="mt-2 font-semibold text-gray-600">AMOUNT: Rs. 5000/-</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 flex items-center">
+                        <div class="bg-blue-600 p-4 rounded-full text-center">
+                            <p class="text-2xl font-bold text-white">05</p>
+                        </div>
+                        <div class="ml-4">
+                            <div class="uppercase px-2 rounded-md text-white bg-green-400 font-semibold">
+                                Paid</div>
+                            <p class="mt-2 text-gray-600">DATE: 2024-07-25</p>
+                            <p class="mt-2 font-semibold text-gray-600">AMOUNT: Rs. 5000/-</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 flex items-center">
+                        <div class="bg-blue-600 p-4 rounded-full text-center">
+                            <p class="text-2xl font-bold text-white">05</p>
+                        </div>
+                        <div class="ml-4">
+                            <div class="uppercase px-2 rounded-md text-white bg-green-400 font-semibold">
+                                Paid</div>
+                            <p class="mt-2 text-gray-600">DATE: 2024-07-25</p>
+                            <p class="mt-2 font-semibold text-gray-600">AMOUNT: Rs. 5000/-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="Tab 4" />
+        <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 4</div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <? for (let i = 0; i < dokters.length; i++) { 
+      let d = dokters[i];
+    ?>
+        <div class="card bg-base-100 shadow-xl hover:scale-105 transition-all duration-300">
+            <div class="card-body">
+                <h3 class="card-title text-primary">
+                    <?= d.nama ?>
+                </h3>
+                <p class="opacity-70">
+                    <?= d.spesialisasi ?>
+                </p>
+
+                <div class="mt-5 space-y-2 text-sm">
+                    <div class="flex items-center gap-2">
+                        <iconify-icon icon="mdi:calendar-month" class="text-primary"></iconify-icon>
+                        <span><strong>Hari Praktek:</strong>
+                            <?= d.hari ?>
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <iconify-icon icon="mdi:clock-outline" class="text-primary"></iconify-icon>
+                        <span><strong>Waktu:</strong>
+                            <?= d.waktu ?>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="badge badge-success badge-lg mt-6 font-medium">
+                    <?= d.jam ?>
+                </div>
+            </div>
+        </div>
+        <? } ?>
+
+        <? if (dokters.length === 0) { ?>
+        <div class="col-span-full alert alert-info text-center py-12">
+            Belum ada data jadwal dokter.
+        </div>
+        <? } ?>
+    </div>
+</div>
+
+
+
+<!-- <div class="space-y-8">
+    <h2 class="text-3xl font-bold text-primary flex items-center gap-3">
+        <iconify-icon icon="mdi:doctor" width="34"></iconify-icon>
+        Jadwal Dokter
+    </h2> -->
+
+<!-- DaisyUI Tabs dengan Radio -->
+<!-- <div class="tabs tabs-boxed bg-base-100 shadow-sm"> -->
+
+<!-- Tab 1: Berdasarkan Spesialisasi -->
+<!-- <input type="radio" name="dokter_tabs" id="tab-spesialisasi" class="tab" checked="checked"
+            onchange="if(this.checked) {}" />
+        <label for="tab-spesialisasi" class="tab">Spesialisasi</label>
+        <div class="tab-content bg-base-100 border border-base-300 p-6 rounded-box">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <? for (let i = 0; i < dokters.length; i++) { 
+          let d = dokters[i]; 
+        ?>
+                <div class="card bg-base-100 shadow-xl hover:scale-105 transition-all duration-300">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <?= d.nama ?>
+                        </h3>
+                        <p class="opacity-70">
+                            <?= d.spesialisasi ?>
+                        </p>
+                        <div class="mt-4 space-y-2 text-sm">
+                            <div><strong>Hari:</strong>
+                                <?= d.hari ?>
+                            </div>
+                            <div><strong>Waktu:</strong>
+                                <?= d.waktu ?>
+                            </div>
+                        </div>
+                        <div class="badge badge-success mt-6">
+                            <?= d.jam ?>
+                        </div>
+                    </div>
+                </div>
+                <? } ?>
+            </div>
+        </div> -->
+
+<!-- Tab 2: Berdasarkan Hari Praktek -->
+<!-- <input type="radio" name="dokter_tabs" id="tab-hari" class="tab" />
+        <label for="tab-hari" class="tab">Hari Praktek</label>
+        <div class="tab-content bg-base-100 border border-base-300 p-6 rounded-box">
+            <? 
+        // Grouping sederhana berdasarkan hari di server-side
+        let hariGroup = {};
+        for (let i = 0; i < dokters.length; i++) {
+          let d = dokters[i];
+          let h = d.hari || 'Lainnya';
+          if (!hariGroup[h]) hariGroup[h] = [];
+          hariGroup[h].push(d);
+        }
+      ?>
+
+            <? for (let hari in hariGroup) { ?>
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-primary mb-4">
+                    <?= hari ?>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <? for (let j = 0; j < hariGroup[hari].length; j++) { 
+              let d = hariGroup[hari][j]; 
+            ?>
+                    <div class="card bg-base-100 shadow-xl hover:scale-105 transition-all">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary">
+                                <?= d.nama ?>
+                            </h3>
+                            <p class="opacity-70">
+                                <?= d.spesialisasi ?>
+                            </p>
+                            <div class="mt-4"><strong>
+                                    <?= d.waktu ?> -
+                                    <?= d.jam ?>
+                                </strong></div>
+                        </div>
+                    </div>
+                    <? } ?>
+                </div>
+            </div>
+            <? } ?>
+        </div> -->
+
+<!-- Tab 3: Berdasarkan Dokter -->
+<!-- <input type="radio" name="dokter_tabs" id="tab-dokter" class="tab" />
+        <label for="tab-dokter" class="tab">Per Dokter</label>
+        <div class="tab-content bg-base-100 border border-base-300 p-6 rounded-box">
+            <? 
+        let dokterGroup = {};
+        for (let i = 0; i < dokters.length; i++) {
+          let d = dokters[i];
+          let nama = d.nama || 'Tidak Diketahui';
+          if (!dokterGroup[nama]) dokterGroup[nama] = [];
+          dokterGroup[nama].push(d);
+        }
+      ?>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <? for (let nama in dokterGroup) { ?>
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <?= nama ?>
+                        </h3>
+                        <div class="mt-6 space-y-4">
+                            <? for (let k = 0; k < dokterGroup[nama].length; k++) { 
+                  let d = dokterGroup[nama][k]; 
+                ?>
+                            <div class="flex justify-between items-center p-4 bg-base-200 rounded-2xl">
+                                <div>
+                                    <div class="font-medium">
+                                        <?= d.hari ?> •
+                                        <?= d.waktu ?>
+                                    </div>
+                                    <div class="text-sm opacity-70">
+                                        <?= d.spesialisasi ?>
+                                    </div>
+                                </div>
+                                <div class="badge badge-success">
+                                    <?= d.jam ?>
+                                </div>
+                            </div>
+                            <? } ?>
+                        </div>
+                    </div>
+                </div>
+                <? } ?>
+            </div>
+        </div> -->
+
+</div>
+</div>

@@ -1,0 +1,15 @@
+{
+  "name": "dashbord-poliklinik",
+  "version": "1.0.0",
+  "description": "dashbord poliklinik RSNS",
+  "license": "ISC",
+  "author": "nazalilis",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/clasp": "^3.3.0"
+  }
+}
