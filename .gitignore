@@ -1,10 +1,10 @@
 # Clasp & Google credential
 .clasp.json
 .clasprc.json
-.claspignore
 **/.clasprc.json
 Database.gs
 Core.gs
+appscript.json
 
 # Node modules
 node_modules/
@@ -17,6 +17,7 @@ yarn-error.log*
 
 # Secret files
 .env
+.claspignore
 secrets.json
 config-secret.gs
 
