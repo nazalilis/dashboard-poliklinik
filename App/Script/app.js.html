@@ -9,7 +9,6 @@
                 <span class="loading loading-bars loading-md"></span>
                 <p class="mt-4 text-base-content/60">Memuat halaman...</p>
             </div>`;
-        // sidebarMenu.innerHTML = `<div class="absolute inset-0 z-10 bg-base-300/10 flex flex-col items-center justify-center py-20"></div>`;
 
         google.script.run
             .withSuccessHandler((html) => {
@@ -32,7 +31,7 @@
         if (page === 'dokter') {
             if (typeof initDokterPage === 'function') initDokterPage();
         }
-        // tambah untuk halaman lain
+        // add for another page
     }
 
     function navigateTo(page) {
@@ -44,27 +43,27 @@
 
         setActiveMenu(page);
 
-        // Delay kecil biar animasi tutup sidebar selesai dulu
+        // A small delay so that the sidebar closing animation finishes first
         setTimeout(() => {
             loadPage(page);
         }, 75);
     }
 
     function setActiveMenu(page) {
-        // Reset semua menu
+        // Reset all menus
         const allMenus = document.querySelectorAll('#sidebar-menu a');
         allMenus.forEach(menu => {
             menu.classList.remove('menu-active');
         });
 
-        // Aktifkan menu yang dipilih
+        // Activate the selected menu
         const activeMenu = document.getElementById(`menu-${page}`);
         if (activeMenu) {
             activeMenu.classList.add('menu-active');
         }
     }
 
-    // Load pertama kali
+    // Load the first time
     window.onload = () => {
         loadPage('dashboard');
         setActiveMenu('dashboard');

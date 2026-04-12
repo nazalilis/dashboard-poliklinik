@@ -5,11 +5,11 @@ function renderPage(page) {
 
     if (page === 'dashboard') {
       template = HtmlService.createTemplateFromFile('App/Views/Pages/dashboard');
-      template.data = {}; // bisa dikirim data kalau perlu
+      template.data = {}; // data can be sent if necessary
       return template.evaluate().getContent();
     }
 
-    if (page === 'dokter')    return renderDokterPage(); // panggil fungsi khusus untuk dokter
+    if (page === 'dokter')    return renderDokterPage(); // call a special function for doctors
 
     // Tambah halaman lain di sini nanti
     return `<div class="alert alert-error">Halaman ${page} belum dibuat</div>`;

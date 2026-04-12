@@ -7,9 +7,18 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "tailwindcss -i ./src/input.css -o ./Public/css/output.css --minify && node ./src/build-css.js",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./Public/css/output.css --watch",
+    "dev": "npm run watch:css"
   },
   "dependencies": {
-    "@google/clasp": "^3.3.0"
+    "@google/clasp": "^3.3.0",
+    "@tailwindcss/cli": "^4.2.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "daisyui": "^5.5.19",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^4.2.2"
   }
 }

@@ -12,7 +12,7 @@ class DokterModel {
 
       const data = sheet.getDataRange().getValues();
       
-      console.log(data); // Debug: lihat data mentah
+      console.log(data); // Debug: view raw data
 
       // Skip header row
       return data.slice(1).map(row => ({
@@ -21,7 +21,7 @@ class DokterModel {
         hari: row[2] || '',
         waktu: row[3] || '',
         jam: row[4] || ''
-      })).filter(row => row.nama); // filter baris kosong
+      })).filter(row => row.nama); // empty line filter
 
     } catch (error) {
       console.error('Error di DokterModel:', error);
@@ -40,17 +40,17 @@ class DokterModel {
 
       const data = sheet.getDataRange().getValues();
       
-      console.log(data); // Debug: lihat data mentah
+      console.log(data); // Debug: view raw data
 
       function kelompokkanJadwal(rawData) {
         const daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
 
-        // STEP 1: Kelompokkan berdasarkan Poli -> Dokter -> Shift + Jam
+        // STEP 1: Group by Poly -> Doctor -> Shift + Hours
         const grouped = rawData.reduce((acc, [poli, nama, hari, shift, jam]) => {
           if (!acc[poli]) acc[poli] = {};
           if (!acc[poli][nama]) acc[poli][nama] = {};
 
-          // Kita gabungkan Shift dan Jam sebagai kunci unik
+          // We combine Shift and Hour as a unique key
           const keyShift = ` (${jam})`;
           if (!acc[poli][nama][keyShift]) acc[poli][nama][keyShift] = [];
           
@@ -58,15 +58,15 @@ class DokterModel {
           return acc;
         }, {});
 
-        // STEP 2: Format Hari (Logika "-" atau ",")
+        // STEP 2: Day Format (Logic "-" or ",")
         const formatHari = (hariTerpilih) => {
           if (hariTerpilih.length === 1) return hariTerpilih[0];
 
-          // Urutkan hari berdasarkan urutan kalender
+          // Sort days by calendar order
           const sortedHari = hariTerpilih.sort((a, b) => daftarHari.indexOf(a) - daftarHari.indexOf(b));
           const indices = sortedHari.map(h => daftarHari.indexOf(h));
           
-          // Cek apakah berurutan (misal: 0, 1, 2)
+          // Check if it is sequential (eg: 0, 1, 2)
           const isSequential = indices.every((val, i) => i === 0 || val === indices[i - 1] + 1);
 
           if (isSequential && indices.length > 1) {
@@ -76,7 +76,7 @@ class DokterModel {
           }
         };
 
-        // STEP 3: Susun ulang menjadi Array untuk Template
+        // STEP 3: Rearrange into Array for Template
         return Object.entries(grouped).map(([namaPoli, dokters]) => ({
           poli: namaPoli,
           listDokter: Object.entries(dokters).map(([namaDokter, shifts]) => ({
@@ -107,14 +107,14 @@ class DokterModel {
 
       const data = sheet.getDataRange().getValues();
       
-      console.log(data); // Debug: lihat data mentah
+      console.log(data); // Debug: view raw data
 
       function kelompokkanJadwalHarian(rawData) {
-        // Urutan standar agar tampilan tidak acak
+        // Standard order so that the display is not random
         const urutanHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         const urutanShift = ['Pagi', 'Siang', 'Sore', 'Malam'];
 
-        // Step 1: Kelompokkan data ke dalam Object
+        // Step 1: Group data into Objects
         const grouped = rawData.reduce((acc, [poli, nama, hari, shift, jam]) => {
           if (!acc[hari]) acc[hari] = {};
           if (!acc[hari][shift]) acc[hari][shift] = [];
@@ -127,7 +127,7 @@ class DokterModel {
           return acc;
         }, {});
 
-        // Step 2: Susun ulang berdasarkan urutan hari & shift yang benar
+        // Step 2: Rearrange based on the correct order of days and shifts
         const hasilFinal = [];
         
         urutanHari.forEach(h => {

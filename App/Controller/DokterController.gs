@@ -1,13 +1,13 @@
 // App/Controller/DokterController.gs
 function renderDokterPage() {
-  const dokters = DokterModel.getAll();     // ambil data
-  const spesialisasiDetail = DokterModel.getSpesialisasiDetail(); // ambil data detail berdasarkan spesialisasi
-  const spesialisasiHarian = DokterModel.getKelompokJadwalHarian(); // ambil data berdasarkan spesialisasi
+  const dokters = DokterModel.getAll();     // take all data dokter
+  const spesialisasiDetail = DokterModel.getSpesialisasiDetail(); // take detail data based on specialization
+  const spesialisasiHarian = DokterModel.getKelompokJadwalHarian(); // take data based on specialization
   
   const template = HtmlService.createTemplateFromFile('App/Views/Pages/dokter');
-  template.dokters = dokters;               // kirim data ke template
-  template.spesialisasiDetail = spesialisasiDetail; // kirim data detail berdasarkan spesialisasi ke template
-  template.spesialisasiHarian = spesialisasiHarian;     // kirim data berdasarkan spesialisasi ke template
+  template.dokters = dokters;               // send data to template
+  template.spesialisasiDetail = spesialisasiDetail; // send detailed data based on specialization to the template
+  template.spesialisasiHarian = spesialisasiHarian;     // send data based on specialization to the template
   
-  return template.evaluate().getContent();  // return HTML yang sudah di-parse
+  return template.evaluate().getContent();  // return parsed HTML
 }
