@@ -1,2 +1,4 @@
 *.gs linguist-language=Google-Apps-Script
 *.gs linguist-detectable=true
+*.gs linguist-vendored=false
+*.gs linguist-documentation=false
