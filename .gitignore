@@ -1,8 +1,10 @@
 # Clasp & Google credential
 .clasp.json
 .clasprc.json
+.claspignore
 **/.clasprc.json
 Database.gs
+Core.gs
 
 # Node modules
 node_modules/

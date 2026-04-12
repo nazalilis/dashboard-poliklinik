@@ -5,6 +5,7 @@
 !*.html
 !*.ts
 !App/**
+!Public/**
 node_modules/**
 README.md
 .git/

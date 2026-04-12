@@ -28,42 +28,6 @@ class DokterModel {
       throw new Error('Gagal mengambil data dokter: ' + error.message);
     }
   }
-
-  static getSpesialisasi() {
-    try {
-      const ss = SpreadsheetApp.openById(SHEET_ID);
-      const sheet = ss.getSheetByName(SHEET_Jadwal_Dokter);
-      
-      if (!sheet) {
-        throw new Error(`Sheet dengan nama "${SHEET_Jadwal_Dokter}" tidak ditemukan!`);
-      }
-
-      const data = sheet.getDataRange().getValues();
-      
-      console.log(data); // Debug: lihat data mentah
-
-      const grouped = data.reduce((acc, curr) => {
-        const poli = curr[0];
-        if (!acc[poli]) acc[poli] = [];
-      
-        acc[poli].push({
-          nama: curr[1],
-          hari: curr[2],
-          shift: curr[3],
-          jam: curr[4]
-        });
-        return acc;
-      }, {});
-
-      console.log(grouped); // Debug: lihat data yang sudah dikelompokkan
-
-      return grouped;
-
-    } catch (error) {
-      console.error('Error di DokterModel:', error);
-      throw new Error('Gagal mengambil data dokter: ' + error.message);
-    }
-  }
   
   static getSpesialisasiDetail() {
     try {
@@ -87,7 +51,7 @@ class DokterModel {
           if (!acc[poli][nama]) acc[poli][nama] = {};
 
           // Kita gabungkan Shift dan Jam sebagai kunci unik
-          const keyShift = `${shift} (${jam})`;
+          const keyShift = ` (${jam})`;
           if (!acc[poli][nama][keyShift]) acc[poli][nama][keyShift] = [];
           
           acc[poli][nama][keyShift].push(hari);
@@ -118,13 +82,78 @@ class DokterModel {
           listDokter: Object.entries(dokters).map(([namaDokter, shifts]) => ({
             nama: namaDokter,
             jadwalDetail: Object.entries(shifts).map(([infoShift, hariArray]) => 
-              `${formatHari(hariArray)} | ${infoShift}`
+              `${formatHari(hariArray)} ${infoShift}`
             )
           }))
         }));
       }
 
       return kelompokkanJadwal(data.slice(1)); // Skip header
+
+    } catch (error) {
+      console.error('Error di DokterModel:', error);
+      throw new Error('Gagal mengambil data dokter: ' + error.message);
+    }
+  }
+
+  static getKelompokJadwalHarian() {
+    try {
+      const ss = SpreadsheetApp.openById(SHEET_ID);
+      const sheet = ss.getSheetByName(SHEET_Jadwal_Dokter);
+      
+      if (!sheet) {
+        throw new Error(`Sheet dengan nama "${SHEET_Jadwal_Dokter}" tidak ditemukan!`);
+      }
+
+      const data = sheet.getDataRange().getValues();
+      
+      console.log(data); // Debug: lihat data mentah
+
+      function kelompokkanJadwalHarian(rawData) {
+        // Urutan standar agar tampilan tidak acak
+        const urutanHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        const urutanShift = ['Pagi', 'Siang', 'Sore', 'Malam'];
+
+        // Step 1: Kelompokkan data ke dalam Object
+        const grouped = rawData.reduce((acc, [poli, nama, hari, shift, jam]) => {
+          if (!acc[hari]) acc[hari] = {};
+          if (!acc[hari][shift]) acc[hari][shift] = [];
+          
+          acc[hari][shift].push({
+            poli: poli,
+            nama: nama,
+            jam: jam
+          });
+          return acc;
+        }, {});
+
+        // Step 2: Susun ulang berdasarkan urutan hari & shift yang benar
+        const hasilFinal = [];
+        
+        urutanHari.forEach(h => {
+          if (grouped[h]) {
+            const shiftsDitemukan = [];
+            
+            urutanShift.forEach(s => {
+              if (grouped[h][s]) {
+                shiftsDitemukan.push({
+                  namaShift: s,
+                  listJadwal: grouped[h][s]
+                });
+              }
+            });
+
+            hasilFinal.push({
+              hari: h,
+              shifts: shiftsDitemukan
+            });
+          }
+        });
+
+        return hasilFinal;
+      }
+
+      return kelompokkanJadwalHarian(data.slice(1)); // Skip headers
 
     } catch (error) {
       console.error('Error di DokterModel:', error);

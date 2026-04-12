@@ -1,7 +1,7 @@
 {
-  "name": "dashbord-poliklinik",
+  "name": "polyclinic-dashboard",
   "version": "1.0.0",
-  "description": "dashbord poliklinik RSNS",
+  "description": "RSNS Polyclinic Dashboard",
   "license": "ISC",
   "author": "nazalilis",
   "type": "commonjs",
