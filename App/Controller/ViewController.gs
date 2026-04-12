@@ -9,6 +9,7 @@ function renderPage(page) {
       return template.evaluate().getContent();
     }
 
+    
     if (page === 'dokter')    return renderDokterPage(); // call a special function for doctors
 
     // Tambah halaman lain di sini nanti
