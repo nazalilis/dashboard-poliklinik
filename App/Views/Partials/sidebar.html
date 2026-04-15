@@ -5,7 +5,7 @@
         <!-- Sidebar content here -->
         <div class="navbar bg-base-300 shadow-sm">
             <!-- <h1 class="text-xl hidden lg:block">Dashboard Poliklinik</h1> -->
-            <h1 class="text-3xl font-bold text-primary flex items-center gap-3 hidden lg:block">
+            <h1 class="text-3xl font-bold text-primary items-center gap-3 hidden lg:block">
                 <iconify-icon icon="mdi:hospital-building" width="32"></iconify-icon>
                 Dashboard Poliklinik
             </h1>
@@ -18,21 +18,30 @@
             <li><a onclick="navigateTo('dokter')" id="menu-dokter" class="flex items-center gap-3"><iconify-icon
                         icon="mdi:view-dashboard-outline"></iconify-icon><span>Dokter</span></a></li>
 
+            <ul>
+                <details>
+                    <summary class="cursor-pointer">
+                        <iconify-icon icon="mdi:doctor"></iconify-icon>
+                        <span>Dokter</span>
+                    </summary>
+                    <ul>
+                        <li>
+                            <a onclick="navigateTo('doctors-schedule')" id="menu-dokter"
+                                class="flex items-center gap-3">
+                                <iconify-icon icon="mdi:date-range"></iconify-icon>
+                                <span>Schedule</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="navigateTo('doctors-absence')" id="menu-dokter" class="flex items-center gap-3">
+                                <iconify-icon icon="mdi:date-range"></iconify-icon>
+                                <span>Absence</span>
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </ul>
 
-            <li>
-                <a>
-                    <!-- Settings icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round"
-                        stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"
-                        class="my-1.5 inline-block size-4">
-                        <path d="M20 7h-9"></path>
-                        <path d="M14 17H5"></path>
-                        <circle cx="17" cy="17" r="3"></circle>
-                        <circle cx="7" cy="7" r="3"></circle>
-                    </svg>
-                    <span>Settings</span>
-                </a>
-            </li>
         </ul>
 
     </div>

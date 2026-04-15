@@ -5,6 +5,7 @@
 Core.gs
 .claspignore
 appsscript.json
+jsconfig.json
 
 # Node modules
 node_modules/
