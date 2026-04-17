@@ -12,7 +12,56 @@
 
     <div class="tabs tabs-box">
 
-        <input type="radio" name="my_tabs_6" class="tab" aria-label="All Doctor" checked="checked" />
+        <!-- Today's Schedule -->
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="Today's Schedule" checked="checked" />
+        <div class="tab-content bg-base-100 border-base-300 p-6">
+
+
+
+            <? 
+                  const jadwalHariIni = spesialisasiHariIni; 
+            ?>
+
+            <div class="today-container">
+                <h2 style="color: #d32f2f;">
+                    JADWAL PRAKTEK HARI INI (
+                    <?= jadwalHariIni.hari ?>)
+                </h2>
+
+                <? if (jadwalHariIni.data.length === 0) { ?>
+                <p>Tidak ada jadwal praktek untuk hari ini.</p>
+                <? } else { ?>
+
+                <? jadwalHariIni.data.forEach(itemShift => { ?>
+                <div style="margin-top: 15px;">
+                    <h3 style="background: #eee; padding: 5px;">
+                        <?= itemShift.namaShift ?>
+                    </h3>
+
+                    <ul style="list-style: none; padding-left: 10px;">
+                        <? itemShift.listJadwal.forEach((j, index) => { ?>
+                        <li style="padding: 5px 0; border-bottom: 1px inset #fafafa;">
+                            <strong>
+                                <?= (index + 1) ?>.
+                            </strong>
+                            Poli
+                            <?= j.poli ?> -
+                            <?= j.nama ?> (
+                            <?= j.jam ?>)
+                        </li>
+                        <? }) ?>
+                    </ul>
+                </div>
+                <? }) ?>
+
+                <? } ?>
+            </div>
+
+
+        </div>
+
+        <!-- Schedule of All Doctors -->
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="All Doctor" />
         <div class="tab-content bg-base-100 border-base-300 p-6">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
@@ -23,21 +72,21 @@
 
                 <? dataFinal2.forEach((itemPoli) => { ?>
 
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="bg-base-300 rounded-xl shadow-md overflow-hidden">
                     <div class="p-4 flex items-center">
 
                         <div class="w-full">
-                            <div class="uppercase px-2 rounded-md text-white bg-green-400 font-semibold">
+                            <div class="uppercase px-2 rounded-md text-primary-content bg-primary font-semibold">
                                 <?= itemPoli.poli ?>
                             </div>
 
                             <? itemPoli.listDokter.forEach((d, index) => { ?>
 
-                            <p class="mt-2 font-semibold text-gray-600">
+                            <p class="mt-2 font-semibold text-base-content">
                                 <?= d.nama ?>
                             </p>
                             <? d.jadwalDetail.forEach(line => { ?>
-                            <p class="mt-2 text-gray-600">
+                            <p class="mt-2 text-base-content">
                                 <?= line ?>
                             </p>
 
@@ -56,7 +105,9 @@
 
         </div>
 
-        <input type="radio" name="my_tabs_6" class="tab" aria-label="Jadwal Harian" />
+
+        <!-- Daily Schedule -->
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="Daily Schedule" />
         <div class="tab-content bg-base-100 border-base-300 p-6">
 
             <? 

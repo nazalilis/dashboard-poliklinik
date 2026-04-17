@@ -4,43 +4,64 @@
 
         <!-- Sidebar content here -->
         <div class="navbar bg-base-300 shadow-sm">
-            <!-- <h1 class="text-xl hidden lg:block">Dashboard Poliklinik</h1> -->
             <h1 class="text-3xl font-bold text-primary items-center gap-3 hidden lg:block">
-                <iconify-icon icon="mdi:hospital-building" width="32"></iconify-icon>
-                Dashboard Poliklinik
+                <iconify-icon icon="healthicons:hospital-outline-24px" width="32"></iconify-icon>
+                <span>Dashboard Poliklinik</span>
             </h1>
         </div>
-        <ul class="menu bg-base-300 h-full w-80 p-4 text-base-content" id="sidebar-menu">
+        <ul class="menu menu-lg bg-base-300 h-full w-80 p-4 text-base-content" id="sidebar-menu">
             <!-- List item -->
             <li><a onclick="navigateTo('dashboard')" id="menu-dashboard"
-                    class="active flex items-center gap-3"><iconify-icon
-                        icon="mdi:view-dashboard-outline"></iconify-icon><span>Homepage</span></a></li>
-            <li><a onclick="navigateTo('dokter')" id="menu-dokter" class="flex items-center gap-3"><iconify-icon
-                        icon="mdi:view-dashboard-outline"></iconify-icon><span>Dokter</span></a></li>
+                    class="active flex items-center gap-3"><iconify-icon icon="mdi:view-dashboard-outline"
+                        width="28"></iconify-icon><span>Homepage</span></a></li>
 
-            <ul>
+            <li>
                 <details>
                     <summary class="cursor-pointer">
-                        <iconify-icon icon="mdi:doctor"></iconify-icon>
+                        <iconify-icon icon="mdi:doctor" width="28"></iconify-icon>
                         <span>Dokter</span>
                     </summary>
                     <ul>
                         <li>
-                            <a onclick="navigateTo('doctors-schedule')" id="menu-dokter"
+                            <a onclick="navigateTo('doctors-schedule')" id="menu-doctors-schedule"
                                 class="flex items-center gap-3">
-                                <iconify-icon icon="mdi:date-range"></iconify-icon>
+                                <iconify-icon icon="mdi:date-range" width="28"></iconify-icon>
                                 <span>Schedule</span>
                             </a>
                         </li>
                         <li>
-                            <a onclick="navigateTo('doctors-absence')" id="menu-dokter" class="flex items-center gap-3">
-                                <iconify-icon icon="mdi:date-range"></iconify-icon>
+                            <a onclick="navigateTo('doctors-absence')" id="menu-doctors-absence"
+                                class="flex items-center gap-3">
+                                <iconify-icon icon="mdi:date-range" width="28"></iconify-icon>
                                 <span>Absence</span>
                             </a>
                         </li>
                     </ul>
                 </details>
-            </ul>
+            </li>
+            <li>
+                <details>
+                    <summary class="cursor-pointer">
+                        <iconify-icon icon="material-symbols-light:groups-outline-rounded" width="28"></iconify-icon>
+                        <span>Patient</span>
+                    </summary>
+                    <ul>
+                        <li>
+                            <a onclick="navigateTo('doctors-schedule')" id="menu-dokter"
+                                class="flex items-center gap-3">
+                                <iconify-icon icon="mdi:date-range" width="28"></iconify-icon>
+                                <span>Schedule</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="navigateTo('doctors-absence')" id="menu-dokter" class="flex items-center gap-3">
+                                <iconify-icon icon="mdi:date-range" width="28"></iconify-icon>
+                                <span>Absence</span>
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
 
         </ul>
 

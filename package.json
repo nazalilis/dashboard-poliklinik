@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build:css": "tailwindcss -i ./src/input.css -o ./Public/css/output.css --minify && node ./src/build-css.js",
-    "watch:css": "tailwindcss -i ./src/input.css -o ./Public/css/output.css --watch",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./Public/css/output.css --watch && node ./src/build-css.js",
     "dev": "npm run watch:css"
   },
   "dependencies": {

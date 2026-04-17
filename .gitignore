@@ -3,8 +3,6 @@
 .clasprc.json
 **/.clasprc.json
 Core.gs
-.claspignore
-appsscript.json
 jsconfig.json
 
 # Node modules

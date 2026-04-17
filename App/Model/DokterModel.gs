@@ -161,4 +161,71 @@ class DokterModel {
     }
   }
 
+  static getJadwalHariIni() {
+
+    try {
+
+      const ss = SpreadsheetApp.openById(SHEET_ID);
+      const sheet = ss.getSheetByName(SHEET_Jadwal_Dokter);
+      
+      if (!sheet) {
+        throw new Error(`Sheet dengan nama "${SHEET_Jadwal_Dokter}" tidak ditemukan!`);
+      }
+
+      const data = sheet.getDataRange().getValues();
+      
+      console.log(data); // Debug: view raw data
+
+
+      function getJadwalHariIni(rawData) {
+        // 1. Ambil Nama Hari Ini
+        const daftarHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const hariAngka = new Date().getDay();
+        const hariIni = daftarHari[hariAngka];
+
+        const urutanShift = ['Pagi', 'Siang', 'Sore', 'Malam'];
+
+        // Pastikan rawData ada isinya
+        if (!rawData || rawData.length === 0) {
+          return { hari: hariIni, data: [], status: "Data Kosong" };
+        }
+
+        // 2. Filter (Gunakan .trim() untuk menghindari spasi tak terlihat di Google Sheets)
+        const dataFiltered = rawData.filter(row => {
+          return row[2] && row[2].toString().trim() === hariIni;
+        });
+
+        // 3. Kelompokkan berdasarkan Shift
+        const groupedByShift = dataFiltered.reduce((acc, [poli, nama, hari, shift, jam]) => {
+          if (!acc[shift]) acc[shift] = [];
+          acc[shift].push({ poli, nama, jam });
+          return acc;
+        }, {});
+
+        // 4. Susun sesuai urutan
+        const hasilFinal = [];
+        urutanShift.forEach(s => {
+          if (groupedByShift[s]) {
+            hasilFinal.push({
+              namaShift: s,
+              listJadwal: groupedByShift[s]
+            });
+          }
+        });
+
+        return {
+          hari: hariIni,
+          data: hasilFinal
+        };
+      }
+
+      return getJadwalHariIni(data.slice(1)); // Skip headers
+
+    } catch (error) {
+      console.error('Error di DokterModel:', error);
+      throw new Error('Gagal mengambil data dokter: ' + error.message);
+    }
+
+  }
+
 }
